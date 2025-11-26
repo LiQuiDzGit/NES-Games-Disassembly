@@ -4,7 +4,7 @@
 .org $8000  ; for listing file
 ; 0x000010-0x00800F
 
-;test
+
 
 ; !!! bzk before editing any code, open bank_val.inc, find con_bzk_hack and change it to 01
 
@@ -2031,8 +2031,12 @@ C - - - - - 0x000DE7 00:8DD7: 4C E3 8D  JMP loc_8DE3
 bra_8DDA:
 C - - - - - 0x000DEA 00:8DDA: A9 00     LDA #$00
 C - - - - - 0x000DEC 00:8DDC: 85 93     STA ram_combo_counter_2
-C - - - - - 0x000DEE 00:8DDE: A9 03     LDA #con_sfx_1_03
-C - - - - - 0x000DF0 00:8DE0: 8D F1 06  STA ram_sfx_1
+; NEA SFX
+                                        LDA #$FF
+                                        STA $4104
+                                        LDA #$02
+                                        STA $4106
+; rotate counterclock-wise
 loc_8DE3:
 C D 0 - - - 0x000DF3 00:8DE3: A5 5C     LDA ram_plr_btn_hold
 C - - - - - 0x000DF5 00:8DE5: 29 01     AND #con_btn_Right
@@ -2046,8 +2050,12 @@ C - - - - - 0x000E02 00:8DF2: F0 15     BEQ bra_8E09
 C - - - - - 0x000E04 00:8DF4: E6 85     INC ram_pill_pos_X
 C - - - - - 0x000E06 00:8DF6: 20 D3 90  JSR sub_90D3
 C - - - - - 0x000E09 00:8DF9: D0 08     BNE bra_8E03
-C - - - - - 0x000E0B 00:8DFB: A9 03     LDA #con_sfx_1_03
-C - - - - - 0x000E0D 00:8DFD: 8D F1 06  STA ram_sfx_1
+; NEA SFX
+                                        LDA #$FF
+                                        STA $4104
+                                        LDA #$01
+                                        STA $4106
+; rotate counterclock-wise
 C - - - - - 0x000E10 00:8E00: 4C 09 8E  JMP loc_8E09
 bra_8E03:
 C - - - - - 0x000E13 00:8E03: C6 85     DEC ram_pill_pos_X
@@ -2079,6 +2087,10 @@ C D 0 - - - 0x000E3A 00:8E2A: 60        RTS
 
 
 sub_8E2B:
+
+
+
+
 C - - - - - 0x000E3B 00:8E2B: A5 A5     LDA ram_pill_rotate
 C - - - - - 0x000E3D 00:8E2D: 85 4A     STA ram_004A_t02_copy_pill_rotate
 C - - - - - 0x000E3F 00:8E2F: A5 85     LDA ram_pill_pos_X
@@ -2086,8 +2098,11 @@ C - - - - - 0x000E41 00:8E31: 85 4B     STA ram_004B_t04_copy_pill_pos_X
 C - - - - - 0x000E43 00:8E33: A5 5B     LDA ram_plr_btn_press
 C - - - - - 0x000E45 00:8E35: 29 80     AND #con_btn_A
 C - - - - - 0x000E47 00:8E37: F0 10     BEQ bra_8E49
-C - - - - - 0x000E49 00:8E39: A9 05     LDA #con_sfx_1_05
-C - - - - - 0x000E4B 00:8E3B: 8D F1 06  STA ram_sfx_1
+; NEA SFX
+                                        LDA #$FF
+                                        STA $4104
+                                        LDA #$01
+                                        STA $4106
 ; rotate clock-wise
 C - - - - - 0x000E4E 00:8E3E: C6 A5     DEC ram_pill_rotate
 C - - - - - 0x000E50 00:8E40: A5 A5     LDA ram_pill_rotate
@@ -2098,8 +2113,11 @@ bra_8E49:
 C - - - - - 0x000E59 00:8E49: A5 5B     LDA ram_plr_btn_press
 C - - - - - 0x000E5B 00:8E4B: 29 40     AND #con_btn_B
 C - - - - - 0x000E5D 00:8E4D: F0 10     BEQ bra_8E5F_RTS
-C - - - - - 0x000E5F 00:8E4F: A9 05     LDA #con_sfx_1_05
-C - - - - - 0x000E61 00:8E51: 8D F1 06  STA ram_sfx_1
+; NEA SFX
+                                        LDA #$FF
+                                        STA $4104
+                                        LDA #$01
+                                        STA $4106
 ; rotate counterclock-wise
 C - - - - - 0x000E64 00:8E54: E6 A5     INC ram_pill_rotate
 C - - - - - 0x000E66 00:8E56: A5 A5     LDA ram_pill_rotate
@@ -3107,14 +3125,19 @@ bra_9459_RTS:
 C - - - - - 0x001469 00:9459: 60        RTS
 
 
-; bzk garbage
+; combo
 - - - - - - 0x00146A 00:945A: A5 8F     LDA ram_combo_counter_1
 - - - - - - 0x00146C 00:945C: C9 02     CMP #$02
 - - - - - - 0x00146E 00:945E: D0 08     BNE bra_9468_RTS
 - - - - - - 0x001470 00:9460: A5 58     LDA ram_0058_temp
 - - - - - - 0x001472 00:9462: 38        SEC
 - - - - - - 0x001473 00:9463: E9 03     SBC #$03
-- - - - - - 0x001475 00:9465: 8D F4 06  STA ram_sfx_4
+; NEA SFX - combo
+                                        LDA #$FF
+                                        STA $4104
+                                        LDA #$03
+                                        STA $4106
+
 bra_9468_RTS:
 - - - - - - 0x001478 00:9468: 60        RTS
 
@@ -3627,6 +3650,9 @@ C - - - - - 0x0017BF 00:97AF: 8D 8D 06  STA ram_068D
 C - - - - - 0x0017C2 00:97B2: A9 00     LDA #$00
 C - - - - - 0x0017C4 00:97B4: 85 5D     STA ram_005D_flag
 C - - - - - 0x0017C6 00:97B6: 20 54 B6  JSR sub_B654
+; NES PAUSE
+                                        LDA #%00000101    ; bit0 = toggle BGM pause, bit2 = stop all SFX
+                                        STA $4101
 C - - - - - 0x0017C9 00:97B9: A9 16     LDA #$16
 C - - - - - 0x0017CB 00:97BB: 8D 01 20  STA $2001
 C - - - - - 0x0017CE 00:97BE: A9 FF     LDA #$FF
@@ -3634,6 +3660,8 @@ C - - - - - 0x0017D0 00:97C0: A2 02     LDX #$02
 C - - - - - 0x0017D2 00:97C2: A0 02     LDY #$02
 C - - - - - 0x0017D4 00:97C4: 20 94 B8  JSR sub_B894_fill_memory_pages
 loc_97C7_loop:
+                                        LDA #$01
+                                        STA 4101
 C D 0 - - - 0x0017D7 00:97C7: A9 70     LDA #$70
 C - - - - - 0x0017D9 00:97C9: 85 44     STA ram_spr_pos_X
 C - - - - - 0x0017DB 00:97CB: A9 77     LDA #$77
@@ -3650,6 +3678,9 @@ C - - - - - 0x0017F0 00:97E0: F0 B7     BEQ bra_9799_reset_the_game
 C - - - - - 0x0017F2 00:97E2: 20 54 B6  JSR sub_B654
 C - - - - - 0x0017F5 00:97E5: 4C C7 97  JMP loc_97C7_loop
 bra_97E8:
+;NEA PAUSE (UNPAuSE)
+                                        LDA #%00000000    ; bit0 = toggle BGM pause
+                                        STA $4101
 C - - - - - 0x0017F8 00:97E8: A9 FF     LDA #$FF    ; bzk optimize, replace with 01 for readability
 C - - - - - 0x0017FA 00:97EA: 85 5D     STA ram_005D_flag
 C - - - - - 0x0017FC 00:97EC: A9 1E     LDA #$1E
@@ -11078,7 +11109,7 @@ C - - - - - 0x0052CE 01:D2BE: 60        RTS
 
 
 loc_D2BF:
-C D 2 - - - 0x0052CF 01:D2BF: A9 0F     LDA #$0F
+C D 2 - - - 0x0052CF 01:D2BF: A9 0F     LDA #%00000000
 C - - - - - 0x0052D1 01:D2C1: 8D 15 40  STA $4015
 C - - - - - 0x0052D4 01:D2C4: A9 55     LDA #$55
 C - - - - - 0x0052D6 01:D2C6: 85 EB     STA ram_random
@@ -11335,7 +11366,7 @@ C - - - - - 0x00540F 01:D3FF: BD F0 06  LDA ram_sounds,X
 C - - - - - 0x005412 01:D402: F0 31     BEQ bra_D435_00
                                     .if con_bzk_hack <> $00
 ; Z = 0
-                                        BNE bra_D405    ; jmp
+                                        BNE bra_D405        ; jmp (Z flag no longer matters after JSR)
                                     .endif
 bra_D404:
                                     .if con_bzk_hack <> $00
@@ -12597,11 +12628,11 @@ bra_DA58:
 - - - - - - 0x005A68 01:DA58: 8D 13 40  STA $4013
 - - - - - - 0x005A6B 01:DA5B: 8C 12 40  STY $4012
 - - - - - - 0x005A6E 01:DA5E: 8E 10 40  STX $4010
-- - - - - - 0x005A71 01:DA61: A9 0F     LDA #$0F
+- - - - - - 0x005A71 01:DA61: A9 0F     LDA #%00000000
 - - - - - - 0x005A73 01:DA63: 8D 15 40  STA $4015
 - - - - - - 0x005A76 01:DA66: A9 00     LDA #$00
 - - - - - - 0x005A78 01:DA68: 8D 11 40  STA $4011
-- - - - - - 0x005A7B 01:DA6B: A9 1F     LDA #$1F
+- - - - - - 0x005A7B 01:DA6B: A9 1F     LDA #%00000000
 - - - - - - 0x005A7D 01:DA6D: 8D 15 40  STA $4015
 - - - - - - 0x005A80 01:DA70: 60        RTS
 
@@ -12732,6 +12763,7 @@ C - - - - - 0x005B19 01:DB09: F0 E2     BEQ bra_DAED_06
 loc_DB0B:
 C D 2 - - - 0x005B1B 01:DB0B: 85 EF     STA ram_00EF_music
 C - - - - - 0x005B1D 01:DB0D: 8D CC 06  STA ram_06CC_music
+                                        JSR NEA_PlayMusic
 C - - - - - 0x005B20 01:DB10: CE CC 06  DEC ram_06CC_music
 C - - - - - 0x005B23 01:DB13: B9 2D DB  LDA tbl_DB2D,Y
 C - - - - - 0x005B26 01:DB16: 8D 7E 06  STA ram_067E
@@ -13618,11 +13650,11 @@ C - - - - - 0x006005 01:DFF5: AD F7 06  LDA ram_06F7
 C - - - - - 0x006008 01:DFF8: D0 14     BNE bra_E00E_RTS
 C - - - - - 0x00600A 01:DFFA: A5 E1     LDA ram_00E1_t01
 C - - - - - 0x00600C 01:DFFC: 8D 10 40  STA $4010
-- - - - - - 0x00600F 01:DFFF: A9 0F     LDA #$0F
+- - - - - - 0x00600F 01:DFFF: A9 0F     LDA #%00000000
 C - - - - - 0x006011 01:E001: 8D 15 40  STA $4015
 C - - - - - 0x006014 01:E004: A9 00     LDA #$00
 C - - - - - 0x006016 01:E006: 8D 11 40  STA $4011
-C - - - - - 0x006019 01:E009: A9 1F     LDA #$1F
+C - - - - - 0x006019 01:E009: A9 1F     LDA #%00000000
 C - - - - - 0x00601B 01:E00B: 8D 15 40  STA $4015
 bra_E00E_RTS:
 C - - - - - 0x00601E 01:E00E: 60        RTS
@@ -21229,19 +21261,34 @@ C - - - - - 0x007F3A 01:FF2A: 20 08 B9  JSR sub_B908_set_prg_bank
 C - - - - - 0x007F3D 01:FF2D: 4C 00 80  JMP loc_8000_reset_init
 
 
-; bzk garbage
-- - - - - - 0x007F40 01:FF30: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00   ; 
-- - - - - - 0x007F50 01:FF40: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x007F60 01:FF50: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x007F70 01:FF60: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00   ; 
-- - - - - - 0x007F80 01:FF70: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00   ; 
-- - - - - - 0x007F90 01:FF80: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x007FA0 01:FF90: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
-- - - - - - 0x007FB0 01:FFA0: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00   ; 
-- - - - - - 0x007FC0 01:FFB0: 00        .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00   ; 
-- - - - - - 0x007FD0 01:FFC0: FF        .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF   ; 
+NEA_PlayMusic:
+    ; A = music ID (con_music_00–0D)
+    ; Preserve registers
+    PHA
+    TXA
+    PHA
+    TYA
+    PHA
 
+    PLA          ; restore Y, but we only needed its value intact
+    TAY
+    PLA
+    TAX
+    PLA          ; A = music ID again
 
+    ; --- Simple rule: album = music ID, track = 1 ---
+
+    STA $4104    ; Album = music ID (0–13)
+    LDA #$01
+    STA $4105    ; Play BGM: track 1 of that album
+
+    ; Optional: force looping ON for everything.
+    ; (You can get fancy later and disable loop for win jingles.)
+    LDA #$01
+    STA $4100    ; loop flag = on
+    LDA #%00000000
+    STA $4015
+    RTS
 
 sub_FFD0:
 ; bzk optimize
