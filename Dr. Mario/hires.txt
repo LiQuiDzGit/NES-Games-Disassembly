@@ -1,0 +1,16 @@
+<ver>108
+<bgm>12,1,bgm_0C_cutscene.ogg
+<bgm>11,1,bgm_0B_win2p.ogg
+<bgm>10,1,bgm_0A_extra2.ogg
+<bgm>8,1,bgm_08_speed_low.ogg
+<bgm>1,1,bgm_01_speed_med_hi.ogg
+<bgm>9,1,track08-2pwin.ogg
+<bgm>5,1,track06-game.ogg
+<bgm>3,1,track05-tetris.ogg
+<bgm>2,1,track04-chill.ogg
+<bgm>4,1,track03-fever.ogg
+<bgm>7,1,track02-menu.ogg
+<bgm>6,1,track01-start.ogg
+<sfx>255,1,sfx01-pill_rotate.ogg
+<sfx>255,2,sfx02-pill_move.ogg
+<sfx>255,3,sfx0.... (in progress)
