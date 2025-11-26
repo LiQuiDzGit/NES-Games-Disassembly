@@ -4,7 +4,7 @@
 .org $8000  ; for listing file
 ; 0x000010-0x00800F
 
-
+;test
 
 ; !!! bzk before editing any code, open bank_val.inc, find con_bzk_hack and change it to 01
 
