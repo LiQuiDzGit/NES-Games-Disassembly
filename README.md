@@ -1,9 +1,19 @@
-# This is a fork of Cyneprepou4uk NES Games Disassembly
+
+## This is a fork of Cyneprepou4uk NES Games Disassembly
+
 They are modified by LiQuiDz to work with Mesen HD Patch (NEA Audio - similar to MSU-1)
+
 https://liquidzretrogaming.net/
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+
+
+
+
+
+-------
 Forked:
 
 # NES Games Disassembly
