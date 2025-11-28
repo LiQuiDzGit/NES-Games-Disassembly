@@ -1996,6 +1996,10 @@ bra_8DA5:
 C - - - - - 0x000DB5 00:8DA5: E6 86     INC ram_pill_pos_Y
 C - - - - - 0x000DB7 00:8DA7: A9 07     LDA #con_sfx_1_07
 C - - - - - 0x000DB9 00:8DA9: 8D F1 06  STA ram_sfx_1
+LDA #$FF
+    STA $4104
+    LDA #$09
+    STA $4106
 C - - - - - 0x000DBC 00:8DAC: 20 52 8F  JSR sub_8F52
 C - - - - - 0x000DBF 00:8DAF: AD 40 07  LDA ram_hacking_protection
 C - - - - - 0x000DC2 00:8DB2: F0 05     BEQ bra_8DB9_check_passed
@@ -2031,7 +2035,7 @@ C - - - - - 0x000DE7 00:8DD7: 4C E3 8D  JMP loc_8DE3
 bra_8DDA:
 C - - - - - 0x000DEA 00:8DDA: A9 00     LDA #$00
 C - - - - - 0x000DEC 00:8DDC: 85 93     STA ram_combo_counter_2
-; NEA SFX
+; NEA SFX 02 (pile move)
                                         LDA #$FF
                                         STA $4104
                                         LDA #$02
@@ -2050,7 +2054,7 @@ C - - - - - 0x000E02 00:8DF2: F0 15     BEQ bra_8E09
 C - - - - - 0x000E04 00:8DF4: E6 85     INC ram_pill_pos_X
 C - - - - - 0x000E06 00:8DF6: 20 D3 90  JSR sub_90D3
 C - - - - - 0x000E09 00:8DF9: D0 08     BNE bra_8E03
-; NEA SFX
+; NEA SFX 01 (pill rotate)
                                         LDA #$FF
                                         STA $4104
                                         LDA #$01
@@ -2799,6 +2803,12 @@ C - - - - - 0x00124E 00:923E: A5 47     LDA ram_0047_t24
 C - - - - - 0x001250 00:9240: C9 03     CMP #$03
 C - - - - - 0x001252 00:9242: 30 62     BMI bra_92A6
 C - - - - - 0x001254 00:9244: E6 8F     INC ram_combo_counter_1
+; NEA SFX 05 COMBO horizontal
+;                                        LDA #$FF
+;                                        STA $4104
+;                                        LDA #$05
+;                                        STA $4106
+;
 C - - - - - 0x001256 00:9246: 85 8E     STA ram_008E
 C - - - - - 0x001258 00:9248: 20 4B 94  JSR sub_944B
 C - - - - - 0x00125B 00:924B: A5 A1     LDA ram_00A1
@@ -3113,6 +3123,11 @@ C - - - - - 0x00145A 00:944A: 60        RTS
 
 
 sub_944B:
+; NEA SFX 06 (combo vertical)
+                                        LDA #$FF
+                                        STA $4104
+                                        LDA #$06
+                                        STA $4106
 C - - - - - 0x00145B 00:944B: A5 8F     LDA ram_combo_counter_1
 C - - - - - 0x00145D 00:944D: F0 0A     BEQ bra_9459_RTS
 C - - - - - 0x00145F 00:944F: C9 05     CMP #$05
@@ -3132,11 +3147,6 @@ C - - - - - 0x001469 00:9459: 60        RTS
 - - - - - - 0x001470 00:9460: A5 58     LDA ram_0058_temp
 - - - - - - 0x001472 00:9462: 38        SEC
 - - - - - - 0x001473 00:9463: E9 03     SBC #$03
-; NEA SFX - combo
-                                        LDA #$FF
-                                        STA $4104
-                                        LDA #$03
-                                        STA $4106
 
 bra_9468_RTS:
 - - - - - - 0x001478 00:9468: 60        RTS
@@ -3179,6 +3189,11 @@ C - - - - - 0x0014AD 00:949D: D0 05     BNE bra_94A4
 C - - - - - 0x0014AF 00:949F: E6 47     INC ram_0047_t23
 C - - - - - 0x0014B1 00:94A1: 4C 88 94  JMP loc_9488_loop
 bra_94A4:
+; NEA SFX 03 - blockfell
+;                                        LDA #$FF
+;                                        STA $4104
+;                                        LDA #$03
+;                                        STA $4106
 C - - - - - 0x0014B4 00:94A4: A5 47     LDA ram_0047_t23
 C - - - - - 0x0014B6 00:94A6: C9 03     CMP #$03
 C - - - - - 0x0014B8 00:94A8: 30 5F     BMI bra_9509
@@ -3192,6 +3207,7 @@ C - - - - - 0x0014C6 00:94B6: 85 A1     STA ram_00A1
 C - - - - - 0x0014C8 00:94B8: E6 A1     INC ram_00A1
 C - - - - - 0x0014CA 00:94BA: A5 59     LDA ram_0059_t02_data_index
 C - - - - - 0x0014CC 00:94BC: 29 78     AND #$78
+
 ; / 08
 C - - - - - 0x0014CE 00:94BE: 4A        LSR
 C - - - - - 0x0014CF 00:94BF: 4A        LSR
@@ -3660,8 +3676,7 @@ C - - - - - 0x0017D0 00:97C0: A2 02     LDX #$02
 C - - - - - 0x0017D2 00:97C2: A0 02     LDY #$02
 C - - - - - 0x0017D4 00:97C4: 20 94 B8  JSR sub_B894_fill_memory_pages
 loc_97C7_loop:
-                                        LDA #$01
-                                        STA 4101
+
 C D 0 - - - 0x0017D7 00:97C7: A9 70     LDA #$70
 C - - - - - 0x0017D9 00:97C9: 85 44     STA ram_spr_pos_X
 C - - - - - 0x0017DB 00:97CB: A9 77     LDA #$77
@@ -11557,6 +11572,7 @@ C - - - - - 0x005524 01:D514: 60        RTS
 
 
 sub_D515:
+;SFX
 C - - - - - 0x005525 01:D515: A9 00     LDA #$00
 C - - - - - 0x005527 01:D517: 8D 11 40  STA $4011
 C - - - - - 0x00552A 01:D51A: A9 10     LDA #$10
@@ -11622,6 +11638,7 @@ C - - - - - 0x005582 01:D572: A0 04     LDY #$04
 C - - - - - 0x005584 01:D574: 20 2B D5  JSR sub_D52B
 ofs_005_D577_06:
 ; con_sfx_0_06
+
 C - - - - - 0x005587 01:D577: 20 AC D2  JSR sub_D2AC
 C - - - - - 0x00558A 01:D57A: D0 F3     BNE bra_D56F_RTS
 C - - - - - 0x00558C 01:D57C: AD DF 06  LDA ram_06DF
@@ -11701,6 +11718,10 @@ C - - - - - 0x0055E0 01:D5D0: 60        RTS
 
 ofs_005_D5D1_04:
 ; con_sfx_0_04
+                                        LDA #$FF
+                                        STA $4104
+                                        LDA #$04
+                                        STA $4106
 C - - J - - 0x0055E1 01:D5D1: 20 AC D2  JSR sub_D2AC
 C - - - - - 0x0055E4 01:D5D4: D0 99     BNE bra_D56F_RTS
 C - - - - - 0x0055E6 01:D5D6: CE DF 06  DEC ram_06DF
@@ -11750,6 +11771,7 @@ C - - - - - 0x005628 01:D618: 60        RTS
 
 ofs_004_D619_03:
 ; con_sfx_0_03
+
 C - - J - - 0x005629 01:D619: A9 04     LDA #$04
 C - - - - - 0x00562B 01:D61B: A0 1C     LDY #$1C
 C - - - - - 0x00562D 01:D61D: 20 2B D5  JSR sub_D52B
@@ -11804,10 +11826,16 @@ bra_D666:
 
 ofs_005_D66A_03:
 ; con_sfx_0_03
+
 C - - J - - 0x00567A 01:D66A: 20 AC D2  JSR sub_D2AC
 C - - - - - 0x00567D 01:D66D: D0 0A     BNE bra_D679_RTS
 loc_D66F:
 bra_D66F:
+; NEA SFX 04 (Virus kill)
+                                        LDA #$FF
+                                        STA $4104
+                                        LDA #$04
+                                        STA $4106
 C D 2 - - - 0x00567F 01:D66F: A9 00     LDA #$00
 C - - - - - 0x005681 01:D671: 8D F8 06  STA ram_06F8_sfx_0
 C - - - - - 0x005684 01:D674: A9 10     LDA #$10
